@@ -8,7 +8,7 @@ bool findPair(int arr[], int len, int difference)
 {
     sort(arr, arr + len);
     int i = 0;
-    int j = 0;
+    int j = 1;
     while (i < len && j < len)
     {
         if (i != j && arr[j] - arr[i] == difference)

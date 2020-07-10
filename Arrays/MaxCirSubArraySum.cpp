@@ -31,7 +31,7 @@ int MaxCirSubArraySum(int a[], int len)
         max_wrap = max_wrap + a[i];
         a[i] = -a[i];
     }
-    // array-sum - (-max subarray sum of inverted array)
+    // array sum - (-max subarray sum of inverted array)
     max_wrap = max_wrap + kadane(a, len);
 
     return max_kadane>=max_wrap?max_kadane:max_wrap;

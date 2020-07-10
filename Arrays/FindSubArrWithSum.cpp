@@ -1,8 +1,8 @@
 #include <iostream>
-#include <stdio.h>
 
 using namespace std;
 
+// 2 pointer Naive approch========================
 void subArraySum(int arr[], int len, int sum)
 {
     int curr_sum = 0;
@@ -26,6 +26,8 @@ void subArraySum(int arr[], int len, int sum)
         }
     }
 }
+
+// Window sliding approach ======================
 
 void subArraySum2(int arr[], int n, int sum)
 {
