@@ -1,4 +1,5 @@
 #include <iostream>
+#include<unordered_map>
 using namespace std;
 
 // 2 pointer Naive approch========================
@@ -71,6 +72,30 @@ int maxSum(int arr[], int n)
     }
     return res;
 }
+
+// Largest subarray with equal no of 0's and 1's =================================================================
+
+int maxLen(int arr[], int n)
+{
+    unordered_map<int,int> counts;
+    counts[0]=-1;
+    int max_len =0;
+    int count =0;
+
+    for(int i =0; i< n; i++)
+    {
+        if(arr[i]==0)
+            count += -1;
+        else
+            count += 1;
+        if(counts.find(count)!= counts.end())
+            max_len= max(max_len, i- counts[count]);
+        else
+            counts[count]=i;
+    }
+    cout<< 
+    return max_len;
+}
 int main(int args, char **_argc)
 {
     // int arr[] = {15, 2, 4, 8, 9, 5, 10, 23};
@@ -79,10 +104,16 @@ int main(int args, char **_argc)
     // // subArraySum(arr, n, sum);
     // subArraySum2(arr, n, sum);
 
-// Maximm sum of i*arr[i] among all rotations of a given array
+    // Maximm sum of i*arr[i] among all rotations of a given array
 
     int arr2[] = {8, 3, 1, 2};
     int n2 = sizeof(arr2) / sizeof(arr2[0]);
-    cout << maxSum(arr2, n2);
+    // cout << maxSum(arr2, n2);
+
+    // Largest subarray with equal no of 0's and 1's
+    int arr[] = {1, 0, 0, 1, 0, 1, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout<<maxLen(arr, n);
     return 0;
 }
