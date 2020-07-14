@@ -33,8 +33,8 @@ void mergeInterval(pair<int, int> arr[], int n)
     stack<pair<int, int>> s;
     sort(arr, arr + n);
     
-    int index = 0;
-    s.push(arr[index]);
+    // int index = 0;
+    s.push(arr[0]);
     for (int i = 1; i < n; i++)
     {
         pair<int,int> top = s.top();
