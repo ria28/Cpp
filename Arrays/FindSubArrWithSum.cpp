@@ -1,5 +1,5 @@
 #include <iostream>
-#include<unordered_map>
+#include <unordered_map>
 using namespace std;
 
 // 2 pointer Naive approch========================
@@ -77,25 +77,44 @@ int maxSum(int arr[], int n)
 
 int maxLen(int arr[], int n)
 {
-    unordered_map<int,int> counts;
-    counts[0]=-1;
-    int max_len =0;
-    int count =0;
+    unordered_map<int, int> counts;
+    counts[0] = -1;
+    int max_len = 0;
+    int count = 0;
 
-    for(int i =0; i< n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(arr[i]==0)
+        if (arr[i] == 0)
             count += -1;
         else
             count += 1;
-        if(counts.find(count)!= counts.end())
-            max_len= max(max_len, i- counts[count]);
+        if (counts.find(count) != counts.end())
+            max_len = max(max_len, i - counts[count]);
         else
-            counts[count]=i;
+            counts[count] = i;
     }
-    cout<< 
+
     return max_len;
 }
+
+//largest-sum-subarray-at-least-k-numbers=============================================================================
+// https://www.geeksforgeeks.org/largest-sum-subarray-least-k-numbers/
+
+void maxSumWithK(int arr[], int n, int k)
+{
+    int sum = arr[0];
+    for (int i = 1; i < k; i++)
+    {
+        sum += arr[i];
+    }
+
+    for (int i = k; i < n; i++)
+    {
+        sum = max(max(sum + arr[i], sum + arr[i] - arr[i - k]),sum);
+    }
+    cout<<sum;
+}
+
 int main(int args, char **_argc)
 {
     // int arr[] = {15, 2, 4, 8, 9, 5, 10, 23};
@@ -114,6 +133,13 @@ int main(int args, char **_argc)
     int arr[] = {1, 0, 0, 1, 0, 1, 1};
     int n = sizeof(arr) / sizeof(arr[0]);
 
-    cout<<maxLen(arr, n);
+    // cout << maxLen(arr, n);
+
+    //largest-sum-subarray-at-least-k-numbers=============================================================================
+
+    int a[] = {1, 1, 1, 1, 1, 1};
+    int k = 4;
+    int n_ = sizeof(a) / sizeof(a[0]);
+    maxSumWithK(a, n_, k);
     return 0;
 }

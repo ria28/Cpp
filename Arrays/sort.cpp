@@ -132,23 +132,23 @@ int merge(int arr[], int temp[], int left, int mid, int right)
     int i = left, j = mid, k = right;
     int inv_count = 0;
 
-    while(i<=mid-1 && j<=right)
+    while (i <= mid - 1 && j <= right)
     {
-        if(arr[i]<=arr[j])
+        if (arr[i] <= arr[j])
         {
-            temp[k++]= arr[i++];
+            temp[k++] = arr[i++];
         }
         else
         {
-            temp[k++]=arr[j++];
+            temp[k++] = arr[j++];
             inv_count += mid - i;
         }
     }
 
-    while(i<=mid-1)
-        temp[k++]= arr[i++];
-    while(j<=right)
-        temp[k++]= arr[j++];
+    while (i <= mid - 1)
+        temp[k++] = arr[i++];
+    while (j <= right)
+        temp[k++] = arr[j++];
 
     return inv_count;
 }
@@ -167,6 +167,56 @@ int _mergeSort(int arr[], int temp[], int left, int right)
 
     return inv_count;
 }
+
+// generate all possible sorted array from alternate elements of 2 given sorted array===============================
+// https://www.geeksforgeeks.org/generate-all-possible-sorted-arrays-from-alternate-elements-of-two-given-arrays/
+void printArr(int arr[], int n)
+{
+    for (int i = 0; i < n; i++) 
+        cout << arr[i] << " "; 
+    cout << endl; 
+}
+void generateUtil(int A[], int B[], int C[], int i, int j, int m, int n, int len, bool flag)
+{
+    if (flag)
+    {
+        if (len)
+            printArr(C, len + 1);
+        for (int k = i; k < m; k++)
+        {
+
+            if (!len)
+            {
+                C[len] = A[k];
+                generateUtil(A, B, C, k + 1, j, m, n, len, !flag);
+            }
+            else
+            {
+                if (C[len] < A[k])
+                    C[len + 1] = A[k];
+                generateUtil(A, B, C, k + 1, j, m, n, len + 1, !flag);
+            }
+        }
+    }
+    else
+    {
+        for (int l = j; l < n; j++)
+        {
+            if (C[len] < B[l])
+            {
+                C[len + 1] = B[l];
+                generateUtil(A, B, C, i, l + 1, m, n, len + 1, !flag);
+            }
+        }
+    }
+}
+
+void generate(int A[], int B[], int m, int n)
+{
+    int C[m + n]; /* output array */
+    generateUtil(A, B, C, 0, 0, m, n, 0, true);
+}
+
 int main(int args, char **argv)
 {
     // Rearrage array alternatively -ve and +ve terms=========================================================
@@ -187,7 +237,7 @@ int main(int args, char **argv)
     // 3 WAY sort=========================================================
     int arr3[] = {4, 9, 4, 4, 9, 1, 1, 1};
     int n3 = sizeof(arr3) / sizeof(arr3[0]);
-    ThreeWaySort(arr3, 0, n3 - 1);
+    // ThreeWaySort(arr3, 0, n3 - 1);
     // for (int item = 0; item < n3; item++)
     //     cout << arr3[item] << " ";
 
@@ -196,12 +246,20 @@ int main(int args, char **argv)
     int arr4[] = {1, 14, 5, 20, 4, 2, 54, 20, 87, 98, 3, 1, 32};
     int n4 = sizeof(arr4) / sizeof(arr4[0]);
     int lowVal = 14, highVal = 20;
-    ThreeWayPartioning(arr4, n, lowVal, highVal);
-    for (int item = 0; item < n4; item++)
-        cout << arr4[item] << " ";
+    // ThreeWayPartioning(arr4, n, lowVal, highVal);
+    // for (int item = 0; item < n4; item++)
+    //     cout << arr4[item] << " ";
 
     int arr5[] = {1, 20, 6, 7, 5, 8, 11, 13};
     int n5 = sizeof(arr5) / sizeof(arr5[0]);
     int temp[n5];
-    _mergeSort(arr5, temp, 0, n5 - 1);
+    // _mergeSort(arr5, temp, 0, n5 - 1);
+
+    // generate all possible sorted array from alternate elements of 2 given sorted array========================
+
+    int A[] = {10, 15, 25};
+    int B[] = {5, 20, 30};
+    int n6 = sizeof(A) / sizeof(A[0]);
+    int m = sizeof(B) / sizeof(B[0]);
+    generate(A, B, n6, m);
 }
