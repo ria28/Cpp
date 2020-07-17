@@ -110,9 +110,34 @@ void maxSumWithK(int arr[], int n, int k)
 
     for (int i = k; i < n; i++)
     {
-        sum = max(max(sum + arr[i], sum + arr[i] - arr[i - k]),sum);
+        sum = max(max(sum + arr[i], sum + arr[i] - arr[i - k]), sum);
     }
-    cout<<sum;
+    cout << sum;
+}
+
+// Subarray sum divisible by K==============================================================================
+// https://leetcode.com/problems/subarray-sums-divisible-by-k/
+int longSubarrWthSumDivByK(int arr[], int n, int k)
+{
+    unordered_map<int, int> map;
+    map[0] = 1;
+    int cumm_sum = 0;
+    int ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cumm_sum += arr[i];
+        int rem = cumm_sum % k;
+
+        if (map.find(rem) != map.end())
+        {
+            ans = ans + map[rem];
+            map[rem]++;
+        }
+        else
+            map[rem] = 1;
+    }
+
+    return ans;
 }
 
 int main(int args, char **_argc)
@@ -140,6 +165,16 @@ int main(int args, char **_argc)
     int a[] = {1, 1, 1, 1, 1, 1};
     int k = 4;
     int n_ = sizeof(a) / sizeof(a[0]);
-    maxSumWithK(a, n_, k);
+    // maxSumWithK(a, n_, k);
+
+    // No of Subarray sum divisible by K==============================================================================
+
+    int arr3[] = {4,5,0,-2,-3,1};// {4,5,0,-2,-3,1}
+    int n3 = sizeof(arr3) / sizeof(arr3[0]);
+    int k3 = 5;  //k=5
+
+    cout << "Length = "
+         << longSubarrWthSumDivByK(arr3, n3, k3);
+
     return 0;
 }
