@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 using namespace std;
 
 // 2 pointer Naive approch========================
@@ -140,6 +141,36 @@ int longSubarrWthSumDivByK(int arr[], int n, int k)
     return ans;
 }
 
+// Print all Subarray with 0 sum
+// https://www.geeksforgeeks.org/print-all-subarrays-with-0-sum/
+
+vector<pair<int, int>> findSubarrays(int arr[], int n)
+{
+    unordered_map<int, vector<int>> map;
+    vector<pair<int, int>> output;
+    int sum = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+
+        if (sum == 0)
+            output.push_back(make_pair(0, i));
+
+        if (map.find(sum) != map.end())
+        {
+            vector<int> vc = map[sum];
+
+            for (int j = 0; j < vc.size(); j++)
+            {
+                output.push_back(make_pair(vc[j] + 1, i));
+            }
+        }
+        map[sum].push_back(i);
+    }
+    return output;
+}
+
 int main(int args, char **_argc)
 {
     // int arr[] = {15, 2, 4, 8, 9, 5, 10, 23};
@@ -148,16 +179,24 @@ int main(int args, char **_argc)
     // // subArraySum(arr, n, sum);
     // subArraySum2(arr, n, sum);
 
-    // Maximm sum of i*arr[i] among all rotations of a given array
+    //  Print all subarray with 0 sum=============================================================
+    int arr4[] = {6, 3, -1, -3, 4, -2, 2, 4, 6, -12, -7};
+    int n4 = sizeof(arr4) / sizeof(arr4[0]);
+    vector<pair<int, int>> out = findSubarrays(arr4, n4);
+    for (int i = 0; i < out.size(); i++)
+    {
+        cout << out[i].first << ", " << out[i].second<<"\n";
+    }
+
+    // Maximm sum of i*arr[i] among all rotations of a given array==============================
 
     int arr2[] = {8, 3, 1, 2};
     int n2 = sizeof(arr2) / sizeof(arr2[0]);
     // cout << maxSum(arr2, n2);
 
-    // Largest subarray with equal no of 0's and 1's
+    // Largest subarray with equal no of 0's and 1's===============================================
     int arr[] = {1, 0, 0, 1, 0, 1, 1};
     int n = sizeof(arr) / sizeof(arr[0]);
-
     // cout << maxLen(arr, n);
 
     //largest-sum-subarray-at-least-k-numbers=============================================================================
@@ -169,12 +208,10 @@ int main(int args, char **_argc)
 
     // No of Subarray sum divisible by K==============================================================================
 
-    int arr3[] = {4,5,0,-2,-3,1};// {4,5,0,-2,-3,1}
+    int arr3[] = {4, 5, 0, -2, -3, 1}; // {4,5,0,-2,-3,1}
     int n3 = sizeof(arr3) / sizeof(arr3[0]);
-    int k3 = 5;  //k=5
-
-    cout << "Length = "
-         << longSubarrWthSumDivByK(arr3, n3, k3);
+    int k3 = 5; //k=5
+    // cout << "Length = " << longSubarrWthSumDivByK(arr3, n3, k3);
 
     return 0;
 }
