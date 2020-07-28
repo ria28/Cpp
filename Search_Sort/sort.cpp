@@ -97,6 +97,53 @@ void sortK(int arr[], int n, int k)
     }
 }
 
+// https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/
+// sort-integers-by-the-number-of-1-bits
+
+int countBits(int a)
+{
+    int count = 0;
+    while (a)
+    {
+        if (a & 1)
+            count += 1;
+        a = a >> 1;
+    }
+    return count;
+}
+vector<int> sortByBits(vector<int> &arr)
+{
+
+    int n = arr.size();
+    vector<vector<int>> count(32);
+    int setbitcount = 0;
+    for (int i = 0; i < n; i++)
+    {
+        setbitcount = countBits(arr[i]);
+        count[setbitcount].push_back(arr[i]);
+    }
+
+    int j = 0; // Used as an index in final sorted array
+
+    // Traverse through all bit counts (Note that we
+    // sort array in decreasing order)
+    for (int i = 0; i < 31; i++)
+    {
+        vector<int> v1 = count[i];
+        if (v1.size() == n)
+        {
+            sort(arr.begin(), arr.end());
+            return arr;
+        }
+        sort(v1.begin(), v1.end());
+        for (int i = 0; i < v1.size(); i++)
+
+            arr[j++] = v1[i];
+    }
+
+    return arr;
+}
+
 int main(int args, char **argc)
 {
     vector<int> arr{1, 4, 1, 2, 7, 5, 2};
@@ -110,11 +157,18 @@ int main(int args, char **argc)
     int n2 = sizeof(arr2) / sizeof(arr2[0]);
     // cout << boolalpha << checkReverse(arr2, n2);
 
-    
-
     //  NEARLY SORTED ALGORITHM (K -SORTED)
     int arr3[] = {6, 5, 3, 2, 8, 10, 9};
     int k = 3;
     int n3 = sizeof(arr3) / sizeof(arr3[0]);
-    sortK(arr3, n, k);
+    // sortK(arr3, n, k);
+
+    // Sort an array according to count of set bits
+
+    // vector<int> arr4{0, 1, 2, 3, 4, 5, 6, 7, 8};
+    vector<int> arr4{1024,512,256,128,64,32,16,8,4,2,1};
+    int n4 = sizeof(arr4) / sizeof(arr4[0]);
+    vector<int> out = sortByBits(arr4);
+    for (int i = 0; i < out.size(); i++)
+        cout << out[i] << " ";
 }
