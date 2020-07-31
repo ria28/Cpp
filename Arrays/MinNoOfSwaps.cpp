@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -66,6 +67,42 @@ int MinSwaps(int data1[], int data2[])
 // https://www.geeksforgeeks.org/minimum-number-swaps-required-sort-array/
 // minimum-number-swaps-required-sort-array============================================================
 
+int minSwapSort(int arr[], int n)
+{
+    pair<int, int> arrMapPos[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        arrMapPos[i].first = arr[i];
+        arrMapPos[i].second = i;
+    }
+
+    sort(arrMapPos, arrMapPos + n);
+    vector<bool> vis(n, false);
+    int ans = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        
+        // if already visted or already at correct position
+        if (vis[i] || arrMapPos[i].second == i)
+            continue;
+
+        int cycle_size = 0;
+        int j = i;
+
+        while (!vis[j])
+        {
+            vis[j] = true;
+            // move to next node
+            j = arrMapPos[j].second;
+            cycle_size++;
+        }
+        if (cycle_size > 0)
+            ans += (cycle_size - 1);
+    }
+    return ans;
+}
 
 int main(int args, char **argc)
 {
@@ -74,7 +111,7 @@ int main(int args, char **argc)
     int arr[] = {2, 1, 5, 6, 3};
     int n = sizeof(arr) / sizeof(arr[0]);
     int k = 3;
-    cout << minSwap(arr, n, k) << "\n";
+    // cout << minSwap(arr, n, k) << "\n";
 
     // int arr1[] = {2, 7, 9, 5, 8, 7, 4};
     // n = sizeof(arr1) / sizeof(arr1[0]);
@@ -84,8 +121,10 @@ int main(int args, char **argc)
     // Minimum no. of swaps to make 2 arrays identical====================================================================
     int data1[] = {3, 6, 4, 8};
     int data2[] = {4, 6, 8, 3};
-    cout << MinSwaps(data1, data2);
+    // cout << MinSwaps(data1, data2);
 
-    
+    int arr2[] = {1, 5, 4, 3, 2};
+    int n2 = (sizeof(arr2) / sizeof(arr2[0]));
+    cout << minSwapSort(arr2, n2);
     return 0;
 }
