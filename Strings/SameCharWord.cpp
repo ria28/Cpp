@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 const int MAX_CHARS = 256;
 using namespace std;
 
@@ -38,7 +39,7 @@ void wordsWithSameCharSet(string words[], int n)
         {
             cout << words[*j] << " ";
         }
-        cout << "\n";
+        // cout << "\n";
     }
 }
 
@@ -104,14 +105,16 @@ string findSubString(string str)
         }
     }
 
-    return str.substr(start,min_len);
+    return str.substr(start, min_len);
 }
+
 int main(int args, char **argc)
 {
-    string words[] = {"may", "student", "students", "dog",
-                      "studentssess", "god", "cat", "act", "tab",
-                      "bat", "flow", "wolf", "lambs", "amy", "yam",
-                      "balms", "looped", "poodle"};
+    // string words[] = {"may", "student", "students", "dog",
+    //                   "studentssess", "god", "cat", "act", "tab",
+    //                   "bat", "flow", "wolf", "lambs", "amy", "yam",
+    //                   "balms", "looped", "poodle"};
+    string words[] = {"cat", "dog", "tac", "god", "act"};
     int n = sizeof(words) / sizeof(words[0]);
     // wordsWithSameCharSet(words, n);
 
@@ -119,9 +122,7 @@ int main(int args, char **argc)
     // print(str, 0);
 
     string str2 = "aabcbcdbca";
-    cout << "Smallest window containing all distinct"
-            " characters is: "
-         << findSubString(str2);
+    // cout << "Smallest window containing all distinct characters is: "<< findSubString(str2);
 
     return 0;
 }

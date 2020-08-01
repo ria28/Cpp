@@ -9,6 +9,7 @@
         "fstream": "cpp",
         "sstream": "cpp",
         "tuple": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "hash_map": "cpp"
     }
 }
