@@ -81,21 +81,34 @@ int arekAnagrams(string str1, string str2)
         count1[str1[i]]++;
         count2[str2[i]]++;
     }
-    int count =0;
+    int count = 0;
 
-    for(int i=0; i<MAX_CHARS; i++)
+    for (int i = 0; i < MAX_CHARS; i++)
     {
-        if(count1[i]>count2[i])
-            count += abs(count1[i]-count2[i]);
+        if (count1[i] > count2[i])
+            count += abs(count1[i] - count2[i]);
     }
 
-    return count ;
+    return count;
+}
+
+// https://www.geeksforgeeks.org/check-binary-representations-two-numbers-anagram/
+int bit_anagram_check(unsigned long long int no)
+{
+    int count = 0;
+    while (no)
+    {
+        if (no & 1 == 1)
+            count++;
+        no = no >> 1;
+    }
+    return count;
 }
 
 int main(int args, char **argv)
 {
     vector<string> list{"cat", "dog", "ogd", "god", "atc"};
-    vector<vector<string>> out1 = groupAnagrams(list);
+    // vector<vector<string>> out1 = groupAnagrams(list);
     // print out1
 
     char txt[] = "BACDGABCDA";
@@ -105,10 +118,16 @@ int main(int args, char **argv)
     string str1 = "anagram";
     string str2 = "grammar";
     int k = 2;
-    if (arekAnagrams(str1, str2)==k)
-        cout << "Yes";
+    // if (arekAnagrams(str1, str2) == k)
+    //     cout << "Yes";
+    // else
+    //     cout << "No";
+
+    unsigned long long int a = 8, b = 4;
+    if ((bit_anagram_check(a) == bit_anagram_check(b)))
+        cout << "yes";
     else
-        cout << "No";
+        cout << "no";
 
     return 0;
 }
