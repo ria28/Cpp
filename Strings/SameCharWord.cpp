@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
+#include <string.h>
 const int MAX_CHARS = 256;
 using namespace std;
 
@@ -108,6 +109,60 @@ string findSubString(string str)
     return str.substr(start, min_len);
 }
 
+// https://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/
+string findSubString2(string str, string pat)
+{
+    int len1 = str.length();
+    int len2 = pat.length();
+
+    if (len1 < len2)
+        return "";
+
+    int hash_str[MAX_CHARS] = {0};
+    int hash_pat[MAX_CHARS] = {0};
+
+    for (int i = 0; i < len2; i++)
+        hash_pat[pat[i]]++;
+
+    int start = 0, count = 0, min_len = INT64_MAX, start_idx = -1;
+    for (int j = 0; j < len1; j++)
+    {
+        hash_str[str[j]]++;
+
+        cout << str[j] << " ";
+        if (hash_pat[str[j]] != 0 && hash_str[str[j]] <= hash_pat[str[j]])
+            count++;
+
+        // cout<<count;
+        if (count == len2)
+        {
+            // cout<<count;
+            while (hash_str[str[start]] > hash_pat[str[start]] || hash_pat[str[start]] == 0)
+            {
+                if (hash_str[str[start]] > hash_pat[str[start]])
+
+                    hash_str[str[start]]--;
+
+                start++;
+            }
+
+            int len_window = j - start + 1;
+            cout << len_window;
+            if (min_len > len_window)
+            {
+                // cout<<min_len;
+                //update
+                min_len = len_window;
+                start_idx = start;
+            }
+        }
+    }
+    // if (start_idx == -1)
+    //     return "hell";
+    cout << min_len;
+    return str.substr(start, min_len);
+}
+
 int main(int args, char **argc)
 {
     // string words[] = {"may", "student", "students", "dog",
@@ -123,6 +178,12 @@ int main(int args, char **argc)
 
     string str2 = "aabcbcdbca";
     // cout << "Smallest window containing all distinct characters is: "<< findSubString(str2);
+
+    // string str3 = "this is a test string";
+    // string pattern = "tist";
+    string str3 = "geeksforgeeks";
+    string pattern = "ork";
+    cout << "smallest window in a string containing all char of another string : " << findSubString2(str3, pattern);
 
     return 0;
 }
