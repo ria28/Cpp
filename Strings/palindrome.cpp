@@ -117,6 +117,32 @@ string findPalindromicString(string str, int n)
     return (front + odd_char + rear);
 }
 
+// https://www.geeksforgeeks.org/longest-non-palindromic-substring/
+bool isPalindrome(string str, int n)
+{
+    for (int i = 0; i < n / 2; i++)
+        if (str[i] != str[n - 1 - i])
+            return false;
+
+    return true;
+}
+
+int maxLengthNonPalinSubstring(string str)
+{
+    int n = str.length();
+    int i;
+    for (i = 0; i < n; i++)
+        if (str[i] != str[0])
+            break;
+
+    if (i == n)
+        return 0;
+
+    if (isPalindrome(str, n))
+        return n - 1;
+    return n;
+}
+
 int main(int args, char **argc)
 {
     // string s = "0011";
@@ -129,5 +155,8 @@ int main(int args, char **argc)
     string str = "malayalam";
     // string str = "nope";
     // string str ="racecar";
-    cout << findPalindromicString(str, str.length());
+    // cout << findPalindromicString(str, str.length());
+
+    string str2 = "abba";
+    cout << "Maximum length = " << maxLengthNonPalinSubstring(str2);
 }
