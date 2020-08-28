@@ -384,6 +384,44 @@ public class linkedList{
         }
     }
 
+    // segregate 0, 1,2
+    public void segregate_012(linkedList ll)
+    {
+        Node curr_node = ll.head;
+        Node cn = ll.head;
+        int cnt_0=0, cnt_1=0,cnt_2 =0;
+        while(curr_node!=null)
+        {
+            if(curr_node.data ==0)
+                cnt_0++;
+            else if(curr_node.data ==1)
+                cnt_1++;
+            else
+                cnt_2++;
+            curr_node = curr_node.next;
+        }
+        // System.out.println(cnt_2);
+        while(cnt_0!=0)
+        {
+            cn.data=0;
+            cn=cn.next;
+            cnt_0--;
+        }
+        while(cnt_1!=0)
+        {
+            cn.data=1;
+            cn=cn.next;
+            cnt_1--;
+        }
+        while(cnt_2!=0)
+        {
+            cn.data=2;
+            cn=cn.next;
+            cnt_2--;
+        }
+        ll.display();
+    }
+
     public static void main(String[] args){
         // LinkedList<Integer> ll = new LinkedList<>();
         linkedList ll = new linkedList();
@@ -488,9 +526,24 @@ public class linkedList{
         
         int target = 101;
 
-        three_ll_sum(triplet_1.merge_sort(triplet_1.head,triplet_1.tail).head,
-        triplet_2.merge_sort(triplet_2.head,triplet_2.tail).head, 
-        triplet_3.merge_sort(triplet_3.head,triplet_3.tail).head,target,0);
+        // three_ll_sum(triplet_1.merge_sort(triplet_1.head,triplet_1.tail).head,
+        // triplet_2.merge_sort(triplet_2.head,triplet_2.tail).head, 
+        // triplet_3.merge_sort(triplet_3.head,triplet_3.tail).head,target,0);
+
+
+        linkedList ll4 = new linkedList();
+        // 2  1  2  1  1  2  0  1  0
+        ll4.addLast(2);
+        ll4.addLast(1);
+        ll4.addLast(2);
+        ll4.addLast(1);
+        ll4.addLast(1);
+        ll4.addLast(2);
+        ll4.addLast(0);
+        ll4.addLast(1);
+        ll4.addLast(0);
+        ll4.segregate_012(ll4);
+
 
     }
 }
