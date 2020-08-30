@@ -47,6 +47,7 @@ public class Multilevel_ll
         System.out.println(""); 
     }
 
+    // https://www.geeksforgeeks.org/flatten-a-linked-list-with-next-and-child-pointers/
     public Node flatten_createList()
     {
         int arr1[] = new int[]{10, 5, 12, 7, 11}; 

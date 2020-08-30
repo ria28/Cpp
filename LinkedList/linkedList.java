@@ -84,6 +84,10 @@ public class linkedList{
 // https://www.geeksforgeeks.org/given-only-a-pointer-to-a-node-to-be-deleted-in-a-singly-linked-list-how-do-you-delete-it/
     public static void deleteNode_withoutHead(Node node)
     {
+        if(node.next == null)
+        {
+            node =null;
+        }
         Node temp = node.next;
         node.data = temp.data;
         node.next= temp.next;
@@ -422,7 +426,63 @@ public class linkedList{
         ll.display();
     }
 
-    public static void main(String[] args){
+
+    // QUICK SORT====================================================
+    public Node partiton(Node head, Node tail)
+    {
+        return tail;
+    }
+    public void quickSort(Node head , Node tail)
+    {
+        // System.out.println(head.data);
+        // System.out.println(tail.data);
+
+        Node pivot = partiton(head,tail);
+        Node curr = head;
+
+        if(tail == null || pivot ==null || head == tail)
+            return;
+       
+
+        while( curr!=null)
+        {
+            
+            if(curr==pivot)
+                break;
+            if(curr.data >pivot.data && curr.next!=null)
+            {
+                Node nbr = curr.next;
+                Node temp = new Node();
+                int val = curr.data;
+                deleteNode_withoutHead(curr);
+                temp.data = val;
+                temp.next = tail.next;    // null
+                tail.next = temp;
+                tail = temp;
+                // System.out.println(curr.data);
+                curr = nbr;
+            }
+            else
+                curr= curr.next;
+        }
+
+        // System.out.println(head.data);
+
+        Node head_ = head;
+        while(head_.next.data < pivot.data)
+        {
+            head_ = head_.next;
+        }
+        System.out.println(head.data+", "+head_.data);
+        quickSort(head, head_);
+        System.out.println(pivot.next.data+","+tail.data);
+        quickSort(pivot.next,tail);
+
+ 
+    }
+
+    public static void main(String[] args)
+    {
         // LinkedList<Integer> ll = new LinkedList<>();
         linkedList ll = new linkedList();
         ll.addLast(1);
@@ -542,7 +602,17 @@ public class linkedList{
         ll4.addLast(0);
         ll4.addLast(1);
         ll4.addLast(0);
-        ll4.segregate_012(ll4);
+        // ll4.segregate_012(ll4);
+
+        linkedList ll5 = new linkedList();
+        ll5.addLast(40);
+        ll5.addLast(20);
+        ll5.addLast(60);
+        ll5.addLast(10);
+        ll5.addLast(50);
+        ll5.addLast(30);
+        ll5.quickSort(ll5.head, ll5.tail);
+        ll5.display();
 
 
     }
