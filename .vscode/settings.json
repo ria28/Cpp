@@ -11,5 +11,6 @@
         "tuple": "cpp",
         "numeric": "cpp",
         "hash_map": "cpp"
-    }
+    },
+    "java.home": ""
 }

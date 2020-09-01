@@ -1,5 +1,7 @@
 // import java.util.LinkedList;
 import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Comparator;
 
 public class linkedList{
 
@@ -84,9 +86,11 @@ public class linkedList{
 // https://www.geeksforgeeks.org/given-only-a-pointer-to-a-node-to-be-deleted-in-a-singly-linked-list-how-do-you-delete-it/
     public static void deleteNode_withoutHead(Node node)
     {
+        // System.out.println(node.data);
         if(node.next == null)
         {
             node =null;
+            return;
         }
         Node temp = node.next;
         node.data = temp.data;
@@ -481,6 +485,187 @@ public class linkedList{
  
     }
 
+
+// https://www.geeksforgeeks.org/rearrange-a-given-linked-list-in-place/
+// REARRANGE 
+
+    public Node reverse(Node node)
+    {
+        Node curr = node , prev = null, next;
+        while(curr != null)
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr =next;
+        }
+
+        return prev;
+    }
+
+    public void rearrange(Node head)
+    {
+        // find middle
+        Node s = head;
+        Node f = head;
+        while(f.next!=null && f.next.next!=null)
+        {
+            s = s.next;
+            f = f.next.next;            
+        }
+
+        //  middle is s
+
+        Node node1 = head;
+        Node node2 = s.next;
+        s.next = null;
+
+        node2 = reverse(node2);
+
+        // Node dummy = new Node();
+        // Node curr = dummy;    // pointer
+        Node curr = new Node();
+        // curr.next = null;
+        
+        while(node1 != null || node2 != null)
+        {
+            // Node curr = new Node();
+            if(node1 != null)
+            {
+                curr.next = node1;
+                // System.out.println(curr.data);
+                node1= node1.next;
+                curr = curr.next;
+            }
+        
+            if(node2 != null)
+            {
+                // System.out.println(node2.data);
+                curr.next = node2;
+                // System.out.println(curr.data);
+                node2= node2.next;
+                curr = curr.next;
+            }
+        }
+        // dummy = dummy.next;
+
+        
+    }
+
+    public void zig_zag(Node head)
+    {
+        boolean flag =false;
+        Node cur = head;
+
+        while(cur.next!=null)
+        {
+            if(flag== false)
+            {
+                if(cur.data > cur.next.data)
+                {
+                    int temp = cur.data;
+                    cur.data = cur.next.data;
+                    cur.next.data = temp;
+                }
+            }
+
+            if(flag== true)
+            {
+                if(cur.data < cur.next.data)
+                {
+                    int temp = cur.data;
+                    cur.data = cur.next.data;
+                    cur.next.data = temp;
+                }
+            }
+            
+            cur = cur.next;
+            flag = !(flag);
+        }
+    }
+
+    // https://www.geeksforgeeks.org/sort-linked-list-already-sorted-absolute-values/
+    // list 1-> -2 -> -3 -> 4 -> -5
+    // o/p -5 -> -3 -> -2 -> 1 -> 4
+
+    public void helper_sort(Node node)
+    {
+        int a = node.data;
+
+        Node temp = node.next;
+        node.data = temp.data;
+        node.next= temp.next;
+
+        Node temp2 = new Node();
+        temp2.data = a;
+        temp2.next = head.next;
+        head = temp2;
+
+    }
+
+    public void sort_alreadySorted(Node cur)
+    {
+        // Node cur = head;
+        while(cur!= null)
+        {
+            if(cur.data < 0)
+            {
+                System.out.println(cur.data);
+                Node val = cur;
+                Node node = cur.next;
+                addFirst(val.data); 
+                deleteNode_withoutHead(cur);
+                cur = node;        
+            }
+            else
+                cur = cur.next;
+        }
+
+        // System.out.println(head.data);   
+    }
+
+    public Node mergeKLists(Node[] arr, int k) 
+    {
+
+        Node head = null, last = null;
+
+        // create min heap
+        PriorityQueue<Node> pq = new PriorityQueue<>(
+                                new Comparator<Node>()
+                                {
+                                    public int compare(Node a, Node b)
+                                    {
+                                        return a.data - b.data;
+                                    }
+                                });
+        for(int i =0;i<k;i++)
+            if(arr[i]!= null)
+                pq.add(arr[i]);
+
+        while(!pq.empty())
+        {
+            Node top = pq.peek();
+            pq.remove();
+
+            if (top.next != null) 
+                pq.add(top.next); 
+
+            if(head == null)
+            {
+                head = top;
+                last = top;
+            }
+            else
+            {
+                last.next = top;
+                last = top;
+            }
+        }
+        return head;
+    }
+
+
+
     public static void main(String[] args)
     {
         // LinkedList<Integer> ll = new LinkedList<>();
@@ -611,9 +796,55 @@ public class linkedList{
         ll5.addLast(10);
         ll5.addLast(50);
         ll5.addLast(30);
-        ll5.quickSort(ll5.head, ll5.tail);
-        ll5.display();
+        // ll5.quickSort(ll5.head, ll5.tail);
+        // ll5.display();
 
+
+        // ll2 = 1,2,3,4,5
+        // ll2.rearrange(ll2.head);
+        // ll2.display();
+
+        // ll2.zig_zag(ll2.head);
+        // ll2.display();
+
+        linkedList ll6 = new linkedList();
+        ll6.addLast(1);
+        ll6.addLast(-2);
+        ll6.addLast(-3);
+        ll6.addLast(4);
+        ll6.addLast(-5);
+
+        // ll6.sort_alreadySorted(ll6.head);
+        // ll6.display();
+
+
+        int k = 3;
+        Node arr[] = new Node[k];
+
+        linkedList l_1 = new linkedList();
+        linkedList l_2 = new linkedList();
+        linkedList l_3 = new linkedList();
+
+        l_1.addLast(1);
+        l_1.addLast(3);
+        l_1.addLast(5);
+        l_1.addLast(7);
+
+        l_2.addLast(2);
+        l_2.addLast(4);
+        l_2.addLast(6);
+        l_2.addLast(8);
+
+        l_3.addLast(0);
+        l_3.addLast(9);
+        l_3.addLast(10);
+        l_3.addLast(11);
+
+        arr[0] = l_1.head;
+        arr[1] = l_2.head;
+        arr[2] = l_3.head;
+        Node head = mergeKSortedLists(arr, k); 
+         
 
     }
 }
