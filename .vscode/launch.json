@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - try1",
+            "request": "launch",
+            "mainClass": "try1",
+            "projectName": "pepQues_5feee838"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - linkedList",
             "request": "launch",
             "mainClass": "linkedList",
