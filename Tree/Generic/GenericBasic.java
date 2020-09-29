@@ -11,99 +11,210 @@ public class GenericBasic {
         }
     }
 
+    public static boolean areMirror(Node n1, Node n2) {
+        if (n1.children.size() != n2.children.size())
+            return false;
+        for (int i = 0; i < n1.children.size(); i++) {
+            int j = n1.children.size() - 1 - i; // *************************************imp
+            Node c1 = n1.children.get(i);
+            Node c2 = n2.children.get(j);
+
+            if (areMirror(c1, c2) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean areSimilar(Node n1, Node n2) {
+        if (n1.children.size() != n2.children.size())
+            return false;
+
+        for (int i = 0; i < n1.children.size() - 1; i++) {
+            Node c1 = n1.children.get(i);
+            Node c2 = n2.children.get(i);
+            if (areSimilar(c1, c2) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Distance between nodes
+    public static void distBtwNodes(Node node, int d1, int d2) {
+        ArrayList<Integer> list1 = nodeToRootPath(node, d1);
+        ArrayList<Integer> list2 = nodeToRootPath(node, d2);
+
+        int i = list1.size() - 1;
+        int j = list2.size() - 1;
+
+        while (i >= 0 && j >= 0 && list1.get(i) == list2.get(j)) {
+            i--;
+            j--;
+        }
+        i++;
+        j++;
+
+        System.out.println(i + j);
+    }
+
+    // lowest common ancestor
+    public static int lca(Node node, int d1, int d2) {
+        ArrayList<Integer> list1 = nodeToRootPath(node, d1);
+        ArrayList<Integer> list2 = nodeToRootPath(node, d2);
+
+        int i = list1.size() - 1;
+        int j = list2.size() - 1;
+
+        while (i >= 0 && j >= 0 && list1.get(i) == list2.get(j)) {
+            i--;
+            j--;
+        }
+        i++;
+        j++;
+
+        return list1.get(i);
+
+    }
+
+    // boolean in findInTree -------> Arraylist here
+    public static ArrayList<Integer> nodeToRootPath(Node node, int val) {
+        if (node.data == val) {
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(node.data);
+            return list;
+        }
+
+        for (Node child : node.children) {
+            ArrayList<Integer> ptc = nodeToRootPath(child, val);
+            if (ptc.size() > 0) {
+                ptc.add(node.data);
+                return ptc;
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    public static boolean findInTree(Node node, int val) {
+        if (node.data == val)
+            return true;
+        for (Node child : node.children) {
+            boolean fic = findInTree(child, val);
+            if (fic)
+                return true;
+        }
+        return false;
+    }
+
+    public static Node linearize2(Node node) {
+        if (node.children.size() == 0) // leaf
+            return node;
+
+        // last tail
+        Node lt = linearize2(node.children.get(node.children.size() - 1));
+        while (node.children.size() > 1) {
+            Node last = node.children.remove(node.children.size() - 1);
+            Node sl = node.children.get(node.children.size() - 1);
+            // second last tail
+            Node slt = linearize2(sl);
+            slt.children.add(last);
+        }
+        return lt;
+    }
 
     // O(n2)
-    public static void linearize(Node node){
-        for(Node child: node.children){
+    public static void linearize(Node node) {
+        for (Node child : node.children) {
             linearize(child);
         }
-        while(node.children.size()>1){
-            Node lc= node.children.remove(node.children.size()-1);
-            Node sl = node.children.get(node.children.size()-1);
+        while (node.children.size() > 1) {
+            Node lc = node.children.remove(node.children.size() - 1);
+            Node sl = node.children.get(node.children.size() - 1);
             Node slt = getTail(sl);
             slt.children.add(lc);
         }
     }
 
-    public static Node getTail(Node node){
-        while(node.children.size()==1){
+    public static Node getTail(Node node) {
+        while (node.children.size() == 1) {
             node = node.children.get(0);
         }
         return node;
     }
 
     // Removal should be done in preorder to avoid unnecessary removals
-    public static void removeLeaves(Node node){
-        
+    public static void removeLeaves(Node node) {
+
         // remove in reverse order
-        for(int i = node.children.size()-1; i>=0;i--){
-            Node child=node.children.get(i);
-            if(child.children.size()==0){
+        for (int i = node.children.size() - 1; i >= 0; i--) {
+            Node child = node.children.get(i);
+            if (child.children.size() == 0) {
                 node.children.remove(i);
             }
         }
 
-        for(Node child : node.children){
+        for (Node child : node.children) {
             removeLeaves(child);
         }
     }
 
-    public static void mirror(Node node){
+    public static void mirror(Node node) {
 
-        for(Node child : node.children){
+        for (Node child : node.children) {
             mirror(child);
         }
         Collections.reverse(node.children);
     }
-    
 
-    //pair class
-    public static class Pair{
+    // pair class
+    public static class Pair {
         Node node;
         int level;
-        Pair(Node node , int level){
-            this.node= node;
-            this.level=level;
+
+        Pair(Node node, int level) {
+            this.node = node;
+            this.level = level;
         }
     }
-    public static void level_order_linewise_4(Node node){
-        Queue<Pair>mq = new ArrayDeque<>();
-        mq.add(new Pair(node,1));
 
-        int level =1;
-        while(mq.size()>0){
+    public static void level_order_linewise_4(Node node) {
+        Queue<Pair> mq = new ArrayDeque<>();
+        mq.add(new Pair(node, 1));
+
+        int level = 1;
+        while (mq.size() > 0) {
             Pair p = mq.remove();
-            if(p.level > level){
+            if (p.level > level) {
                 level = p.level;
                 System.out.println();
             }
 
-            System.out.print(p.node.data+" ");
-            for(Node child : p.node.children){
-                Pair cp = new Pair(child,p.level+1);
+            System.out.print(p.node.data + " ");
+            for (Node child : p.node.children) {
+                Pair cp = new Pair(child, p.level + 1);
                 mq.add(cp);
             }
         }
     }
 
-    public static void level_order_linewise_3(Node node){
+    public static void level_order_linewise_3(Node node) {
         Queue<Node> mq = new ArrayDeque<>();
         mq.add(node);
 
-        while(mq.size()>0){
-            int cicl = mq.size();   // children in current level
-            for(int i =0; i<cicl; i++){
+        while (mq.size() > 0) {
+            int cicl = mq.size(); // children in current level
+            for (int i = 0; i < cicl; i++) {
                 node = mq.remove();
-                System.out.print(node.data+" ");
+                System.out.print(node.data + " ");
 
-                for(Node child : node.children){
+                for (Node child : node.children) {
                     mq.add(child);
                 }
             }
             System.out.println();
         }
     }
-   
+
     public static void level_order_linewise_2(Node node) {
         Queue<Node> mq = new ArrayDeque<>();
         mq.add(node);
@@ -112,8 +223,8 @@ public class GenericBasic {
         while (mq.size() > 0) {
             node = mq.remove();
             if (node.data == -1) {
-                if(mq.size()>0)
-                mq.add(new Node(-1));
+                if (mq.size() > 0)
+                    mq.add(new Node(-1));
                 System.out.println();
             } else {
                 System.out.print(node.data);
@@ -242,10 +353,11 @@ public class GenericBasic {
     }
 
     public static void main(String args[]) {
-        int[] arr = { 10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1,
-                -1 };
+        // int[] arr = { 10, 20, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90,
+        // -1, -1, 40, 100, -1, -1,
+        // -1 };
 
-        // int[] arr = { 10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1 };
+        int[] arr = { 10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1 };
 
         Stack<Node> st = new Stack<>();
         Node root = null;
@@ -278,9 +390,17 @@ public class GenericBasic {
         // level_order_linewise_4(root);
         // mirror(root);
         // removeLeaves(root);
-        linearize(root);
-        display(root);
+        // linearize2(root);
+        // System.out.println(findInTree(root, 50));
 
+        // ArrayList<Integer> list = nodeToRootPath(root, 110);
+        // for(int i =0;i<list.size();i++)
+        // System.out.println(list.get(i)+" ");
+
+        // System.out.println(lca(root,110,70));
+        // distBtwNodes(root, 50, 110);
+        System.out.println(areMirror(root, root));
+        // display(root);
 
     }
 }
