@@ -353,11 +353,9 @@ public class GenericBasic {
     }
 
     public static void main(String args[]) {
-        // int[] arr = { 10, 20, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90,
-        // -1, -1, 40, 100, -1, -1,
-        // -1 };
+        int[] arr = { 10, 20, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1, -1 };
 
-        int[] arr = { 10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1 };
+        // int[] arr = { 10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1 };
 
         Stack<Node> st = new Stack<>();
         Node root = null;
@@ -399,7 +397,7 @@ public class GenericBasic {
 
         // System.out.println(lca(root,110,70));
         // distBtwNodes(root, 50, 110);
-        System.out.println(areMirror(root, root));
+        // System.out.println(areMirror(root, root));
         // display(root);
 
     }

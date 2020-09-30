@@ -107,11 +107,52 @@ public class multiSolver {
         }
     }
 
-    public static void main(String[] args) {
-        int[] arr = { 10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1,
-                -1 };
+    static Node msn;
+    static int ms;
 
-        // int[] arr = { 10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1 };
+    public static int MaxSubtreeSum(Node node) {
+        int sum = 0;
+        for (Node child : node.children) {
+            int csum = MaxSubtreeSum(child); // child sum
+            sum += csum;
+
+        }
+        sum += node.data;
+        if (sum > ms) {
+            ms = sum;
+            msn = node;
+        }
+        return sum;
+    }
+
+    static int dia = 0;
+
+    public static int diameter(Node node) {
+        int dch = -1;   // deepest child
+        int sdch = -1;// second deepest child
+
+        for (Node child : node.children) {
+            int ch = diameter(child);
+            if (ch > dch) {
+                sdch = dch;
+                dch = ch;
+            } else if (ch > sdch) {
+                sdch = ch;
+            }
+        }
+        if (dch + sdch + 2 > dia) {
+            dia = dch + sdch + 2;
+        }
+        return dch + 1;
+
+    }
+
+
+    public static void main(String[] args) {
+        int[] arr = { 10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1,
+        -1, 90, -1, -1, 40, 100, -1, -1,
+        -1 };
+       
 
         Node root = construct(arr);
         size = 0;
@@ -135,11 +176,22 @@ public class multiSolver {
         ceilAndFlor(root, 90);
         // System.out.println("Floor: "+ floor+" Ceil: "+ceil);
 
-        pq = new PriorityQueue<Integer>(Collections.reverseOrder());
-        kthLargest(root, 3);
-        for (int i = 0; i < 2; i++)
-            pq.remove();
-        System.out.println(pq.peek());
+        // pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+        // kthLargest(root, 3);
+        // for (int i = 0; i < 2; i++)
+        // pq.remove();
+        // System.out.println(pq.peek());
+
+
+        // int[] arr = { 10, 20, -50, -1, 60, -1, 30, -70, -1, 80, -110, -1, 120, -1, -1, 90, -1, -1, 40, -100, -1, -1,
+        //     -1 };
+        msn = null;
+        ms = Integer.MIN_VALUE;
+        // MaxSubtreeSum(root);
+        // System.out.println("sum : " + ms + "Root: " + msn.data);
+
+        diameter(root);
+        System.out.println("Diameter"+ dia);
 
     }
 
