@@ -231,7 +231,6 @@ public class Basic {
             path.add(val);
             return true;
         }
-
         boolean filc = nodeToRootPath_2(node.left, val);
         if (filc) {
             path.add(node.data);
@@ -436,8 +435,5 @@ public class Basic {
         // System.out.println( isBST(root).isBST);
 
         System.out.println(balancedTree(root));
-
-
-
     }
 }
