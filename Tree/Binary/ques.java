@@ -307,13 +307,89 @@ public class ques {
     public static int dist_btw_two_nodes(Node node, int n1, int n2) {
         nodeToRootPath_2(node, n1);
         int d1 = cnt;
-        cnt =-1;
+        cnt = -1;
         nodeToRootPath_2(node, n2);
         int d2 = cnt;
-        cnt=-1;
-        nodeToRootPath_2(node,lca(node, n1, n2).data);
+        cnt = -1;
+        nodeToRootPath_2(node, lca(node, n1, n2).data);
         int d3 = cnt;
         return (d1 + d2 - (2 * d3));
+    }
+
+    // https://www.geeksforgeeks.org/print-common-nodes-path-root-common-ancestors/
+    static ArrayList<Integer> ntrp_list = new ArrayList<>();
+
+    public static boolean ntrp(Node node, int val) {
+        if (node == null)
+            return false;
+        if (node.data == val) {
+            ntrp_list.add(node.data);
+            return true;
+        }
+
+        boolean filc = ntrp(node.left, val);
+        if (filc) {
+            ntrp_list.add(node.data);
+            return true;
+        }
+        boolean firc = ntrp(node.right, val);
+        if (firc) {
+            ntrp_list.add(node.data);
+            return true;
+        }
+        return false;
+    }
+
+    public static void common_ancestors(Node node, int n1, int n2) {
+        Node lca = lca(node, n1, n2);
+        ntrp(node, lca.data);
+        for (Integer i : ntrp_list)
+            System.out.print(i + " ");
+    }
+
+    // https://www.geeksforgeeks.org/root-to-leaf-path-sum-equal-to-a-given-number/
+    public static void root_2_leaf_sum(Node node, int sum, int arr_sum, String str) {
+        if (node == null)
+            return;
+        if (node.left == null && node.right == null) {
+            str += node.data;
+            arr_sum += node.data;
+            if (arr_sum == sum) {
+                System.out.println(str);
+            }
+            str = " ";
+        }
+
+        root_2_leaf_sum(node.left, sum, arr_sum + node.data, str + node.data + ",");
+        root_2_leaf_sum(node.right, sum, arr_sum + node.data, str + node.data + ",");
+    }
+
+    // build tree forom post and in order
+    public static Node buildTreeUtil(int[] in, int[] post, int start, int end, int pIdx,
+            HashMap<Integer, Integer> map) {
+        if (start > end)
+            return null;
+
+        System.out.println(pIdx);
+        Node node = new Node(post[pIdx], null, null);
+        pIdx--;
+        if (start == end)
+            return node;
+
+        int iIdx = map.get(node.data);
+        node.right = buildTreeUtil(in, post, iIdx + 1, end, pIdx, map);
+        node.left = buildTreeUtil(in, post, start, iIdx - 1, pIdx, map);
+        return node;
+    }
+
+    public static Node buildTree(int[] in, int[] post, int len) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < len; i++) {
+            map.put(in[i], i);
+        }
+
+        int pIdx = len - 1; // post order last index gives root
+        return buildTreeUtil(in, post, 0, len - 1, pIdx, map);
     }
 
     public static void main(String[] args) {
@@ -393,9 +469,20 @@ public class ques {
         // leftSubtreeSum(root);
         // display(root);
 
-        System.out.println(dist_btw_two_nodes(root, 1,14));
+        // System.out.println(dist_btw_two_nodes(root, 1,14));
         // nodeToRootPath_2(root, 8);
         // System.out.println(cnt);
+
+        // common_ancestors(root, 6, 14);
+
+        // root_2_leaf_sum(root, 28, 0, " ");
+
+        int[] in = { 4, 8, 2, 5, 1, 6, 3, 7 };
+        int[] post = { 8, 4, 5, 2, 6, 7, 3, 1 };
+        int n = in.length;
+
+        Node root__ = buildTree(in, post, n);
+        display(root__);
 
     }
 }
