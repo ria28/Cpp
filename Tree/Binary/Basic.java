@@ -403,7 +403,7 @@ public class Basic {
         // for (int i = 0; i < post.size(); i++)
         // System.out.println(post.get(i));
 
-        // level_order(root);
+        level_order(root);
 
         // ArrayList<Integer> ntrp = nodeToRootPath(root, 75);
         // for (int i = 0; i < ntrp.size(); i++)
@@ -434,6 +434,6 @@ public class Basic {
 
         // System.out.println( isBST(root).isBST);
 
-        System.out.println(balancedTree(root));
+        // System.out.println(balancedTree(root));
     }
 }

@@ -1,6 +1,59 @@
 import java.util.*;
 
 class basic {
+    public  static int largestRectangleArea(int[] arr) {
+        if(arr.length ==0)
+            return 0;
+        if(arr.length==1)
+            return arr[0];
+        int[] rb = new int[arr.length];
+        rb[arr.length-1] = arr.length;
+        Stack<Integer>st = new Stack<>();
+        st.push(arr.length-1);
+        for(int i = arr.length-2;i>=0;i--){
+            while(st.size()>0 && arr[i]<=arr[st.peek()]){
+                st.pop();
+            }  
+            if(st.isEmpty())
+                rb[i] = arr.length;
+            else
+                rb[i]=st.peek();
+            
+            st.push(i);
+            
+        }
+        
+        int[] lb = new int[arr.length];
+        lb[0] =-1;
+        Stack<Integer>st_ = new Stack<>();
+        st_.push(0);  
+        for(int i = 1;i<arr.length;i++){
+            while(st_.size()>0 && arr[i]<=arr[st_.peek()]){
+                st_.pop();
+            }  
+            if(st_.isEmpty())
+                lb[i] = -1;
+            else{
+                lb[i]=st_.peek();
+                System.out.println(st_.peek());
+            }
+            
+            st_.push(i);
+        }
+
+        // System.out.println(lb[1]+" "+rb[0]);
+             
+            int max =0;
+            for(int i =0;i<arr.length;i++){
+                int width = rb[i]-lb[i]-1;
+                int area = arr[i]*width;
+
+                // maxArea = Math.max(maxArea, height[i] * (lessFromRight[i] - lessFromLeft[i] - 1));
+                
+                max = Math.max(max, area);                
+            }
+        return max;
+    }
 
     // https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/
     public static String tictactoe(int[][] moves) {
@@ -67,10 +120,13 @@ class basic {
     public static void main(String[] args) {
         String[] board = { "XOX", "O O", "XOX" }; // true
         // String[] board = {"XXX", " ", "OOO"}; // false
-        System.out.println(validTicTacToe(board));
+        // System.out.println(validTicTacToe(board));
 
         int[][] moves = { {0,0} ,{2,0}, {1,1}, {2,1}, {2,2} };
         // int[][] moves = [[0,0],[1,1],[2,0],[1,0],[1,2],[2,1],[0,1],[0,2],[2,2]]  //draw
-        System.out.println(tictactoe(moves));
+        // System.out.println(tictactoe(moves));
+
+        int height[] = {1,1};
+        System.out.println(largestRectangleArea(height));
     }
 }
