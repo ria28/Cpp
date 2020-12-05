@@ -18,7 +18,8 @@
         "set": "cpp",
         "utility": "cpp",
         "atomic": "cpp",
-        "cstdint": "cpp"
+        "cstdint": "cpp",
+        "xstring": "cpp"
     },
     "java.home": ""
 }
