@@ -26,7 +26,7 @@ void palimParti(string str, string asf)
     for (int i = 0; i < str.size(); i++)
     {
         string sub = str.substr(0, i + 1);
-        string ros = str.substr(i + 1, str.size());
+        string ros = str.substr(i + 1, str.size()); // ros : res of string
         if (isPalindrome(sub))
         {
             palimParti(ros, asf + " (" + sub + ") ");

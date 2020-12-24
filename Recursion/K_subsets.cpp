@@ -35,6 +35,10 @@ void subsets(int i, int ssf, int n, int k, vector<vector<int>> &l) // ssf set so
             subsets(i + 1, ssf + 1, n, k, l);
             l[j].pop_back();
             break;
+
+            // break : why??  To prevent such cases
+            // [ (12)(3)(4) ]
+            // [ (12)(4)(3) ]
         }
         else
         {
@@ -51,7 +55,6 @@ void subset_sum(int i, int ssf, int n, int k, vector<vector<int>> &l, vector<int
     // cout << i << " " << ssf << "\n";
     if (i > n)
     {
-        // cout << "he";
         for (int i = 0; i < k - 1; i++)
         {
             if (SubsetSum[i] != SubsetSum[i + 1])
@@ -119,14 +122,14 @@ int main()
         cout << -1;
     else
     {
-        // subsets(1, 0, n, k, l);
-        subset_sum(1, 0, n, k, l, sum);
+        subsets(1, 0, n, k, l);
+        // subset_sum(1, 0, n, k, l, sum);
     }
 
     return 0;
 }
 
-// e=   EXAMPLES OF K SUBSET==============================================
+//    EXAMPLES OF K SUBSET==============================================
 // 5 2
 // [ (1234)(5) ]
 // [ (1235)(4) ]

@@ -13,10 +13,11 @@ string reverse(string str)
     return rev;
 }
 
-void palindrome(unordered_map<char, int> map, string odd_char, int n, string asf)
+void palindrome(unordered_map<char, int> &map, int idx, int len, string odd_char, int n, string asf)
 {
-    if (asf.size() == map.size())
+    if (idx > len)
     {
+        // cout << asf << "\n";
         string rev = reverse(asf);
         if (odd_char != "")
         {
@@ -31,9 +32,10 @@ void palindrome(unordered_map<char, int> map, string odd_char, int n, string asf
     {
         if (i.second > 0)
         {
-            map[i.first] = i.second - 1;
-            palindrome(map, odd_char, n, asf + i.first);
-            map[i.first] = i.second + 1;
+            int freq = i.second;
+            map[i.first] = freq - 1;
+            palindrome(map, idx + 1, len, odd_char, n, asf + i.first);
+            map[i.first] =freq;
         }
     }
 }
@@ -57,6 +59,7 @@ int main()
     }
     string odd;
     int odd_ = 0; // cnt how many odds are there shouldn't be more than 1
+    int len = 0;
     for (auto i : map)
     {
         if (odd_ > 1)
@@ -70,6 +73,7 @@ int main()
             odd_++;
         }
         map[i.first] = i.second / 2;
+        len += i.second / 2;
     }
 
     // for (auto i : map)
@@ -78,7 +82,7 @@ int main()
     // }
     // cout << odd;
 
-    palindrome(map, odd, str.size(), "");
+    palindrome(map, 1, len, odd, str.size(), "");
 
     return 0;
 }
