@@ -2,8 +2,13 @@
 #include <unordered_map>
 #include <algorithm>
 #include <vector>
+#include <climits>
 #define ll long long
 using namespace std;
+
+// Approach
+// Distribute only N litres of fuel into the car optimally coz to return back u need min N fuels only
+// To minimize the cost , fill cars with less cost/litre
 
 int main()
 {
@@ -25,22 +30,19 @@ int main()
             cin >> c[i];
             map.push_back(make_pair(c[i], f[i]));
         }
-        sort(map.begin(), map.end()); // sorted on te basis of cost
+        sort(map.begin(), map.end()); // sorted on the basis of cost
         int sum = 0;
-        int ans = 0;
+        int dist_left = n;
+        int tot_cost = 0;
         for (auto i : map)
         {
-            if (sum + i.second <= n)
-            {
-                sum += i.second;
-                ans += i.first * i.second;
-            }
-            else
-            {
-                ans += (n - sum) * i.first;
+            if (dist_left == 0)
                 break;
-            }
+            int dist = min((int)i.second, dist_left);
+            dist_left -= dist;
+            cout << dist << " " << dist_left;
+            tot_cost += i.first * dist;
         }
-        cout << ans << "\n";
+        cout << tot_cost << "\n";
     }
 }
