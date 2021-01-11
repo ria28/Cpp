@@ -58,7 +58,8 @@
         "xmemory": "c",
         "xstddef": "c",
         "xtr1common": "c",
-        "xtree": "c"
+        "xtree": "c",
+        "chrono": "cpp"
     },
     "java.home": ""
 }
