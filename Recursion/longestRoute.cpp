@@ -9,7 +9,10 @@
 #define vvi vector<vector<int>>
 using namespace std;
 
-void findLongestPath(vvi &mat, vector<vector<bool>>&)
+void findLongestPath(vvi &mat, vector<vector<bool>>& vis)
+{
+    
+}
 
 int main()
 {
