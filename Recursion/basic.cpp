@@ -2,6 +2,7 @@
 #include <vector>
 using namespace std;
 
+
 static int max_gold = INT32_MIN;
 static int bag = 0;
 // static int result = 0;
