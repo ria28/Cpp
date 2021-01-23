@@ -1,0 +1,9 @@
+Graphs:
+1. Print all paths from src to destination
+2. Shortest path (edges)  ---> BFS
+3. Shortest path (weights) ---->  Dijkstra Algorithm
+4. Minimum Spanning Tree(min LAN wire)---> Prims Algo , Kruskal Algo
+6.Directed Graphs
+    6.1 Topological Sort
+7. Representation of Graphs
+    7.1 Adjacency Matrix (2-D Array)
