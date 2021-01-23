@@ -59,7 +59,8 @@
         "xstddef": "c",
         "xtr1common": "c",
         "xtree": "c",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "ratio": "cpp"
     },
     "java.home": ""
 }
