@@ -16,7 +16,7 @@ void comb(unordered_map<char, string> &map, string str, int k, int idx, string a
     if (k == 0)
     {
         ans.push_back(asf);
-        // cout << asf << "\n";
+        cout << asf << "\n";
         return;
     }
     string alp = map[str[idx]];
