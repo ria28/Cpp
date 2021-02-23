@@ -35,7 +35,6 @@ void subsets(int i, int ssf, int n, int k, vector<vector<int>> &l) // ssf set so
             subsets(i + 1, ssf + 1, n, k, l);
             l[j].pop_back();
             break;
-
             // break : why??  To prevent such cases
             // [ (12)(3)(4) ]
             // [ (12)(4)(3) ]
@@ -107,7 +106,7 @@ int main()
 {
     int n, k;
     cin >> n >> k;
-    vector<vector<int>> l(k, vector<int>());
+    vector<vector<int>> l(k, vector<int>()); // list of ans
     vector<int> sum(k, 0);
     if (n == k)
     {

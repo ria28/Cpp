@@ -20,7 +20,7 @@ void encode(string str)
         {
             dp[i] = 0;
         }
-        else if (str[i - 1] == 0 && str[i] == 0)
+        else if (str[i - 1] == 0 && str[i] != 0)
         {
             dp[i] = dp[i - 1];
         }
