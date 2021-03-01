@@ -13,6 +13,7 @@ using namespace std;
 
 // https://leetcode.com/problems/min-cost-climbing-stairs/
 
+//  JUMPS : 1 or 2 
 int minCostClimbingStairs(vector<int> &cost)
 {
     int n = cost.size();
