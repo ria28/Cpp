@@ -17,7 +17,7 @@ int main()
         isPrime[1] = false;
         // isPrime[2]=true;
         pr.push_back(2);
-        for (ll i = 4; i < n; i += 4)
+        for (ll i = 4; i < n; i += 2)
         {
             isPrime[i] = false;
         }
