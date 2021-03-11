@@ -22,7 +22,11 @@ int knapsack_01(vector<int> &profit, vector<int> &wt, int n, int capacity)
             {
                 // cout<<wt[i]<<" ";
                 int new_pro = profit[i - 1] + dp[i - 1][j - wt[i - 1]];
-                dp[i][j] = max(dp[i - 1][j - 1], new_pro);
+                dp[i][j] = max(dp[i - 1][j], new_pro);
+            }
+            else
+            {
+                dp[i][j] = dp[i - 1][j];
             }
         }
     }
@@ -82,7 +86,7 @@ int main()
     // cout << knapsack_01(profit, wt, n, capacity);
 
     // cout << unbounded_knap(profit, wt, n, capacity);
-    cout<<unbounded_knap_perm(profit, wt, n, capacity);
+    cout << unbounded_knap_perm(profit, wt, n, capacity);
 
     return 0;
 }

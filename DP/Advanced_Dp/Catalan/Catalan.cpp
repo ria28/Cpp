@@ -13,20 +13,28 @@ using namespace std;
 #define vi vector<int>
 #define vii vector<vector<int>>
 
-
-// gap strategy
-void countPalin(string str)
+void catalan(int n)
 {
-    int n = str.size();
-    vii dp(n, vi(n));
+    vi dp(n + 1, 0);
+    dp[0] = 1;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            dp[i] += dp[j] * dp[i - j - 1];
+        }
+    }
 
+    for (auto i : dp)
+        cout << i << " ";
 }
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    countPalin("abccbc"); // not distinct (but all)
+    int n = 5;
+    catalan(n);
     return 0;
 }
