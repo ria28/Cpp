@@ -13,7 +13,7 @@ using namespace std;
 #define vi vector<int>
 #define vii vector<vector<int>>
 
-// https : //leetcode.com/problems/longest-palindromic-subsequence/
+// https://leetcode.com/problems/longest-palindromic-subsequence/
 
 void palin(string str, int n)
 {

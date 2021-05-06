@@ -8,7 +8,7 @@
 #define ll long long
 using namespace std;
 
-// Topological Sort (handles all cases even if cyclic)
+// kahns algo for topological sort 
 
 void kahnAlgo(vector<vector<int>> &graph, vector<int> &inorder, int n)
 {
@@ -39,15 +39,15 @@ void kahnAlgo(vector<vector<int>> &graph, vector<int> &inorder, int n)
 int main()
 {
     // 0 --->1    0--->2    1------->3      2---------->3
-    // vector<vector<int>> arr = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
-    vector<vector<int>> arr = {{0, 1}};
-    vector<vector<int>> graph(2);
+    vector<vector<int>> arr = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
+    // vector<vector<int>> arr = {{0, 1}};
+    vector<vector<int>> graph(4);
     vector<int> inorder(graph.size(), 0);
 
     for (int i = 0; i < arr.size(); i++)
     {
-        graph[arr[i][1]].push_back(arr[i][0]);
-        inorder[arr[i][0]]++;
+        graph[arr[i][1]].push_back(arr[i][0]);  // 0 -----> 1 
+        inorder[arr[i][0]]++;  // indegree of 1 ++ ;
     }
 
     for (int i = 0; i < graph.size(); i++)

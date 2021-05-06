@@ -63,7 +63,7 @@ public:
         this->v = v;
         this->asf = asf;
         this->w = w;
-        this->par = par;
+        this->par = par;  // this is only for making dijikstra graph 
     }
 
     // OPERATOR OVERLOADING : CAN USE ONLY OPERATOR KEYWORD
@@ -112,7 +112,7 @@ void dijkstra(v<v<Edge>> &graph, int dest)
             if (!vis[ele.v])
             {
                 vis[ele.v] = true;
-                if (ele.par != -1)
+                if (ele.par != -1)   // not root 
                     addEdge(dijikstraGraph, ele.v, ele.par, ele.w);
                 for (Edge e : graph[ele.v])
                 {
