@@ -59,21 +59,15 @@ int main(int argc, char const *argv[])
             {
                 set_.insert(ele);
                 arr.push_back(ele);
-            }
+            }            
         }
         set_.clear();
 
         unordered_map<int, int> map;
-        bool one= false;
         int cnt = 0;
         for (int i = 0; i < arr.size(); i++)
         {
             set_.clear();
-            if (arr[i] == 1)
-            {
-                one = true;
-                cnt++;
-            }
             getFactorization(arr[i]);
             if (set_.size() == 0)
                 continue;
@@ -102,8 +96,6 @@ int main(int argc, char const *argv[])
         }
         if (!toge)
             tot_cnt_subsets--;
-        if(one)
-        tot_cnt_subsets--;
         cout << tot_cnt_subsets << "\n";
     }
     return 0;
