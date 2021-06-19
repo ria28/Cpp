@@ -6,6 +6,14 @@ using namespace std;
 #define vi vector<int>
 #define vii vector<vector<int>>
 
+/*  
+    **arr 
+    arr[0][1] = *(*(arr) +1 )
+
+    arr[1][1] = *(*(arr + 1) +1)
+*/
+
+
 int main()
 {
     ios_base::sync_with_stdio(false);
