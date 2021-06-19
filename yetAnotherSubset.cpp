@@ -4,7 +4,7 @@ using namespace std;
 #define MAXN 100001
 
 int spf[MAXN];
-
+long long mod = 1e9 + 7;
 void sieve()
 {
     spf[1] = 1;
@@ -49,17 +49,23 @@ int main(int argc, char const *argv[])
     {
         int n;
         cin >> n;
-        vector<int> arr(n);
+        vector<int> arr;
+        set_.clear();
         for (int i = 0; i < n; i++)
         {
             int ele;
             cin >> ele;
-            arr[i] = ele;
+            if (set_.find(ele) == set_.end())
+            {
+                set_.insert(ele);
+                arr.push_back(ele);
+            }
         }
+        set_.clear();
 
         unordered_map<int, int> map;
         int cnt = 0;
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < arr.size(); i++)
         {
             set_.clear();
             getFactorization(arr[i]);
