@@ -28,20 +28,16 @@ void sieve()
 unordered_set<int> set_;
 void getFactorization(int x)
 {
-    // vector<int> ret;
     while (x != 1)
     {
         if (set_.find(spf[x]) != set_.end())
         {
             set_.clear();
             return;
-            // return set_;
         }
         set_.insert(spf[x]);
-        // ret.push_back(spf[x]);
         x = x / spf[x];
     }
-    // return ret;
 }
 
 int main(int argc, char const *argv[])
@@ -61,8 +57,8 @@ int main(int argc, char const *argv[])
             arr[i] = ele;
         }
 
-        unordered_map<int,int>map;
-        int cnt=0;
+        unordered_map<int, int> map;
+        int cnt = 0;
         for (int i = 0; i < n; i++)
         {
             set_.clear();
@@ -72,34 +68,29 @@ int main(int argc, char const *argv[])
             else
             {
                 cnt++;
-                for(auto s : set_)
+                for (auto s : set_)
                 {
                     map[s]++;
                 }
             }
         }
-        // cout<<cnt<<" ";
-        
-        int tot_cnt_subsets = pow(2,cnt) -1; // excl empty subset
-        int rep =0;
-        bool toge= true;
-        for(auto m : map)
+
+        int tot_cnt_subsets = pow(2, cnt) - 1; // excl empty subset
+        int rep = 0;
+        bool toge = true;
+        for (auto m : map)
         {
-            // cout<<m.first<<" "<<m.second<<"\n";
-            if(m.second >1)
+            if (m.second > 1)
             {
-                if(m.second != cnt)
-                toge = false;
-                rep = pow(2,m.second) - m.second -1;
-                tot_cnt_subsets = tot_cnt_subsets-rep;
+                if (m.second != cnt)
+                    toge = false;
+                rep = pow(2, m.second) - m.second - 1;
+                tot_cnt_subsets = tot_cnt_subsets - rep;
             }
         }
-        if(!toge) tot_cnt_subsets--;
-        cout<<tot_cnt_subsets<<"\n";
+        if (!toge)
+            tot_cnt_subsets--;
+        cout << tot_cnt_subsets << "\n";
     }
-
-    // for (int i = 0; i < p.size(); i++)
-    //     cout << p[i] << " ";
-    // cout << endl;
     return 0;
 }
