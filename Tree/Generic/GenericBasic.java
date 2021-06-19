@@ -104,7 +104,7 @@ public class GenericBasic {
                 return true;
         }
         return false;
-    }
+    }+
 
     public static Node linearize2(Node node) {
         if (node.children.size() == 0) // leaf
@@ -160,10 +160,11 @@ public class GenericBasic {
 
     public static void mirror(Node node) {
 
+        Collections.reverse(node.children);
         for (Node child : node.children) {
             mirror(child);
         }
-        Collections.reverse(node.children);
+        
     }
 
     // pair class
@@ -386,7 +387,7 @@ public class GenericBasic {
         // level_order_linewise_2(root);
         // level_order_linewise_3(root);
         // level_order_linewise_4(root);
-        // mirror(root);
+        mirror(root);
         // removeLeaves(root);
         // linearize2(root);
         // System.out.println(findInTree(root, 50));
@@ -398,7 +399,7 @@ public class GenericBasic {
         // System.out.println(lca(root,110,70));
         // distBtwNodes(root, 50, 110);
         // System.out.println(areMirror(root, root));
-        // display(root);
+        display(root);
 
     }
 }

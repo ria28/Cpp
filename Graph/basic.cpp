@@ -364,6 +364,8 @@ void bfs_level(v<v<Edge>> &graph, int src)
     }
 }
 
+// gcc ----^   abv if more than one component 
+
 void isCyclic(v<v<Edge>> &graph, int src, v<bool> &vis) // passing src coz we can have more than one component
 {
     queue<pair<int, string>> q;
@@ -477,9 +479,9 @@ void infectionSpread(v<v<Edge>> &graph, int time, int src)
         level++;
         while (size-- > 0)
         {
-            pair<int, string> p = q.front(); 
+            pair<int, string> p = q.front();
             q.pop();
-            if (!vis[p.first]) 
+            if (!vis[p.first])
             {
                 vis[p.first] = true;
                 cnt++;
@@ -488,14 +490,14 @@ void infectionSpread(v<v<Edge>> &graph, int time, int src)
                     if (!vis[e.v])
                     {
                         string asf = p.second + to_string(e.v);
-                        q.push(make_pair(e.v, asf)); 
+                        q.push(make_pair(e.v, asf));
                     }
                 }
             }
         }
     }
 
-    cout<<cnt<<" ";
+    cout << cnt << " ";
 }
 
 int main()
@@ -535,7 +537,7 @@ int main()
 
     // bipartite(graph);
 
-    infectionSpread(graph,3,6);
+    infectionSpread(graph, 3, 6);
 
     return 0;
 }

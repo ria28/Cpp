@@ -34,12 +34,12 @@ void binarySearch(ll n, ll c)
     for (ll i = 0; i < n; i++)
         cin >> arr[i];
     sort(arr.begin(), arr.end());
-    ll left = 0;
+    ll left = arr[0];
     ll right = arr[n - 1];
     ll ans = -1;
-    while (left < right)
+    while (left <= right)
     {
-        ll mid = (left + right) / 2;
+        ll mid = left + (right-left) / 2;
         if (checkCows(mid, c, arr))
         {
             // cout<<mid<<" ";
@@ -49,7 +49,7 @@ void binarySearch(ll n, ll c)
         }
         else
         {
-            right = mid;
+            right = mid-1;
         }
     }
     cout << ans << "\n";

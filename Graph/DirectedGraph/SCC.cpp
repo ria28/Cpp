@@ -49,7 +49,8 @@ void display(vii &gp)
     }
 }
 
-void dfs_topologicalSort(vii &gp, int src, vector<bool> &vis, vi &ans) // topological but don't expect the order brecause it is cyclic 
+void dfs_topologicalSort(vii &gp, int src, vector<bool> &vis, vi &ans) // topological but don't 
+expect the order brecause it is cyclic 
 {
     vis[src] = true;
     for (Edge e : gp[src])
