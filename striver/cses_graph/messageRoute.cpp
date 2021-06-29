@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <queue>
 #include <climits>
+#include<stack>
 #define ll long long
 using namespace std;
 #define f_loop(i, s, e) for (int i = s; i < e; i++)
@@ -18,48 +19,68 @@ int main()
     cin.tie(NULL);
     int n, m;
     cin >> n >> m;
-    unordered_map<int, vector<int>> map;
+    vector<vector<int>> gp(n+1, vector<int>());
     for (int i = 0; i < m; i++)
     {
         int u, v;
         cin >> u >> v;
-        map[u].push_back(v);
-        map[v].push_back(u);
+        gp[u].push_back(v);
+        gp[v].push_back(u);
     }
 
-    queue<pair<int, int>> q;
+    queue<int> q;
+    vector<int> par(n + 1, 0);
     vector<bool> vis(n + 1, false);
-    q.push({});
-    // vis[1] = true;
+    q.push(1);
     int level = 0;
-    bool pos = 0;
+    int pos = 0;
     while (!q.empty())
     {
         int size = q.size();
         level++;
+        if (pos == 1)
+            break;
         while (size--)
         {
-            auto ele = q.front();
+            int ele = q.front();
             q.pop();
-            if (ele.first == n)
+            
+            vis[ele] = true;
+            if (ele == n)
             {
-                pos =1;
-                cout << level << "\n";
-                cout << ele.second;
-                return 0;
+                pos = 1;
+                break;
             }
-            vis[ele.first] = true;
-            for (int v : map[ele.first])
+            for (int v : gp[ele])
             {
-                if (!vis[v])
+                if (!vis[v] && !par[v])
                 {
-                    q.push({v, ele.second + to_string(v) +" "});
+                    par[v] = ele;
+                    q.push(v);
                 }
             }
         }
     }
-    if(!pos)
-    cout<<"IMPOSSIBLE";
+    if (!pos)
+     {   cout << "IMPOSSIBLE";
+        return 0;
+     }
+
+    string ans = "";
+    stack<string>st;
+    while (n != 1)
+    {
+        // ans += to_string(n);
+        st.push(to_string(n));
+        n = par[n];
+    }
+    st.push("1");
+    cout << st.size() << "\n";
+    while(!st.empty())
+    {
+        cout<<st.top()<<" ";
+        st.pop();   
+    }
     return 0;
 }
 
