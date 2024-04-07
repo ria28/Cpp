@@ -6,6 +6,36 @@
  * Time complexity in worst case O(n^2)(depends on hash function)
  * Space complexity O(1)
 
+prime no = 3
+pattern = abez
+
+how hash works here
+i -> position
+taken 1 2 3 for simple explanation , o/w we can ascii of chars , so ASCII * ((primeNo)^positionOfChar)
+a            b                 e                z
+(1)      (2)*(primeno)^i       5*(3^2)        25*(3^3) 
+           =2*(3^1) 
+
+
+suppose the hash of abez is X, now we slide a window of pattern size in our text
+
+text:  abcdabezx
+ a        b        c         d        a        b        e        z
+
+ calculated the first hash of text of length pattern  ie, for abcd. Suppose hash is CurrentHash CH,
+
+ Hash("abcd") = CurrentHash
+ when we move our window we shift to bcda, so we recalc hash
+
+ NewHash = CurrentHash - str[oldIdx]
+
+NewHash = NewHash / primeNo;
+
+add val for the new idx
+
+NewHash += str[newIdx] * (primeNo^(pattern.length-1))
+ 
+
  */
 public class RabinKarpSearch {
 
