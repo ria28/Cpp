@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Trie{
+    public:
+        int val;
+        Trie* left;
+        Trie* right;
+        bool we;
+        
+        Trie(int val, Trie* l, Trie* r, bool we){
+            this->val =val;
+            this->left = l;
+            this->right = r;
+            this->we =we;
+        }
+        
+        //constructor, by default 0,null,null,false
+};
+Trie* root;
+int insert(string s , int ans){
+    Trie* curr = root;
+    int n = s.size();
+    for(int i =0;i<s.size();i++){
+        if(s[i]=='0'){
+            if(curr->left!=NULL){
+                if(curr->left->we == true) ans = max(ans,n-i-1);
+                curr->left->val = max(curr->left->val,n-i);
+            }else{
+                curr->left = new Trie(n-i,NULL,NULL,false);
+            }
+            if(curr->right != NULL){
+                ans = max(ans, curr->left->val + curr->right->val);
+            }
+            curr = curr->left;
+        }else{
+        
+            if(curr->right!=NULL){
+                if(curr->right->we == true) ans = max(ans,n-i-1);
+                curr->right->val = max(curr->right->val,n-i);
+            }else{
+                curr->right = new Trie(n-i,NULL,NULL,false);
+            }
+            if(curr->left != NULL){
+                ans = max(ans, curr->left->val + curr->right->val);
+            }
+            curr = curr->right;
+        }
+    }
+    curr->we = true;
+    return ans;
+}
+
+int maxDistance(vector<string>& nums){
+    int ans =0;
+    for(string s : nums){
+        ans = max(ans , insert(s, ans));
+    }
+    return ans;
+}
+
+int main() {
+	root = new Trie(0,NULL,NULL,true);
+	vector<string> nums = { "001", "1", "111111"};
+    int max_distance = maxDistance(nums);
+    cout<<max_distance;
+
+}
